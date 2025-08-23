@@ -1,3 +1,5 @@
+Guide by Daniel Detore, tested 8/23/2025. View the source of this document at [https://github.com/hotelcurtains/MA331-TA/blob/8968418c4b0c2f39223ea3567676959641703316/installation/installation.md](https://github.com/hotelcurtains/MA331-TA/blob/8968418c4b0c2f39223ea3567676959641703316/installation/installation.md).
+
 # Installing R, RStudio & R Markdown
 R is a Python-inspired programming language with many stats functions built-in. Knowing how to use it will make our lives much easier in MA331.
 
@@ -49,10 +51,12 @@ R Markdown is a markup language that lets you combine regular text, LaTeX math, 
    - Let's create a column (R's equivalent to arrays) of data. At the console, type in `X = c(91,90,51,89,94)` and hit enter. 
    - We should see on the right, under "Environment", `X | num [1:5] 91 90 51 89 94`. This means that the variable `X` is a column of `num`bers, with indices from 1 through 5, followed by its data. *(N.B.: R indices start at **1**, not 0 like most languages.)*
    - We can also get the five-number summary of X with the `summary()` function. Let's run `summary(X)` in the console. We should see:
+  
       ```
       Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
         51      89      90      83      91      94 
       ```
+
    - If you are seeing this:
       ![RStudio demo end](image.png)
       It means your R and RStudio installations are functional. You now have all the basics for MA331.
@@ -60,7 +64,8 @@ R Markdown is a markup language that lets you combine regular text, LaTeX math, 
 
 4. Some packages are needed to run the code from our recitations. In the console run the following command to install all of them:
    ```r
-   install.packages(c("BSDA", "EnvStats", "readxl", "agricolae", "gplots", "readr", "mosaic"))
+   install.packages(c("BSDA", "EnvStats", "readxl", "agricolae", 
+   "gplots", "readr", "mosaic"))
    ```
    To actually use a package, you can find it in the "Packages" tab on the bottom-right and click the checkbox to its left or just run `library(packageName)` in the R console. RStudio doesn't always know what package a command comes from, so you might need to look up a function it doesn't recognize.
 
@@ -70,18 +75,21 @@ Head to RStudio's console and send `install.packages(c("tinytex","rmarkdown"))`.
 - Mac: Hit enter from the console if it asks "Do you want to install..."
 
 The process should resolve with something like this:
+
 ```
 * DONE (rmarkdown)
 
 The downloaded source packages are in
 ‘C:\Users\<USERNAME>\AppData\Local\Temp\RtmpcxZU8e\downloaded_packages’
 ```
+
 and return control to you. The last step is to send `tinytex::install_tinytex()` in the console.
 
 Now, you can go to the top ribbon and click "File" -> "New File" -> "R Markdown" and get this dialogue:
 ![Rmd creation dialogue](image-1.png)
 
 When you make your Rmd file, make sure your header looks something like this (most importantly, the `output` line):
+
 ```
 ---
 title: "Homework 1, MA 331-B"
@@ -90,9 +98,10 @@ date: "September 2, 2025"
 output: pdf_document
 ---
 ```
+
 This will make sure your document is exported to the right format and creates a proper header. When you finish your assignment, or if you want to check your output, click "Knit" to export your Rmd into PDF.
 
-[R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) makes a great case for using R Markdown for stats documents and acts as a great guide for the actual use of the format. The [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) assumes knowledge of LaTeX and Markdown and has more advanced information about installation and the inner workings of R Markdown.
+[R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) makes a great case for using R Markdown for stats documents and acts as a great guide for the actual use of the language. The [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) assumes knowledge of LaTeX and Markdown and has more advanced information about installation and the inner workings of the language.
 
 
 ### Installing different LaTeX dependencies 
@@ -100,13 +109,17 @@ If you want to use LaTeX outside of RStudio, you can install these other depende
 - Windows: [MiKTeX](https://miktex.org/download) (https://miktex.org/download) has a simple installer and an [official tutorial](https://miktex.org/howto/install-miktex).
 - Mac: [MacTeX](https://tug.org/mactex/mactex-download.html) (https://tug.org/mactex/mactex-download.html). The download page seems to have all necessary setup info.
 - Linux: A robust option integrated with RStudio is [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html) (https://quarto.org/docs/get-started/hello/rstudio.html) which is easier to install but has a steeper learning curve. The other option is [TexLive](https://www.tug.org/texlive/acquire-netinstall.html) (https://www.tug.org/texlive/acquire-netinstall.html) which is terrible to install but provides the exact same behaviors as Windows and Mac. Both will render Rmd files adequately. You can install TexLive as such:
+
    ```sh
    cd /tmp
-   curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+   curl -L -o install-tl-unx.tar.gz \
+   https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
    zcat < install-tl-unx.tar.gz | tar xf - 
    cd install-tl-2*
-   sudo perl ./install-tl --paper=letter --no-doc-install --no-src-install --scheme=medium --no-interaction
+   sudo perl ./install-tl --paper=letter --no-doc-install \
+       --no-src-install --scheme=medium --no-interaction
    ```
+   
    Then, to be able actually use it, add `export PATH="/usr/local/texlive/<XXXX>/bin/x86_64-linux:$PATH"` somewhere in your `~/.bashrc` then `source ~/.bashrc`. Change `XXXX` to the year of the version you installed. It's also the first 4 numbers in `install-tl-2*` which the `cd` line will automatically detect. 
 
    Be aware that the installation is painfully slow. `time` gave just the installation script 26 min 27 sec.
