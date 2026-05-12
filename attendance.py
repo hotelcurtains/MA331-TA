@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 import sys
 import os
-from pathlib import Path
 
 usage = \
 f"""Usage: [python] {sys.argv[0]} <ATTENDANCE_REPORT.csv|-h>
